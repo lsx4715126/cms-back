@@ -2,6 +2,20 @@
 
 'use strict';
 
+
+exports.onerror = {
+	all(err, ctx) {
+		ctx.body = {
+			code: -1,
+			err
+		}
+	}
+}
+
+
+
+
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -16,7 +30,7 @@ module.exports = appInfo => {
 	config.keys = appInfo.name + '_1560867731488_4423';
 
 	// add your middleware config here
-	config.middleware = [ 'filterDatabaseField' ];
+	config.middleware = ['filterDatabaseField'];
 
 	// add your user config here
 	const userConfig = {
@@ -53,7 +67,7 @@ module.exports = appInfo => {
 	//关闭跨域表单验证(post请求)
 	config.security = {
 		csrf: false,
-		domainWhiteList: [ 'http://localhost:8000' ]
+		domainWhiteList: ['http://localhost:8000']
 	}
 	// 跨域
 	config.cors = {
