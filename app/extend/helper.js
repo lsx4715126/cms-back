@@ -8,15 +8,15 @@ function isObject(o){
 }
 
 module.exports = {
-    filterDatabaseField(modelName = '', param = {}) {
-        let modelPath = path.resolve(__dirname, `../model/${modelName}.js`)
+    filterDatabaseField(tableName = '', param = {}) {
+        let modelPath = path.resolve(__dirname, `../model/${tableName}.js`)
         let exists = fs.existsSync(modelPath)
 
         if(!exists){
             return errCode['modelFileNotExist']
         }
 
-        // 获取model，即数据库modelName表的初始值
+        // 获取model，即数据库tableName表的初始值
         let model = require(modelPath)
         
         if(!isObject(model)){
