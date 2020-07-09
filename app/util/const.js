@@ -1,18 +1,18 @@
 let errCode = {
     'modelFileNotExist': {
-        affectedRows: -1,
+        code: -1,
         msg: 'model文件不存在'
     },
     'modelNotObject': {
-        affectedRows: -2,
+        code: -2,
         msg: 'model必须为对象'
     },
     'optsNotObject': {
-        affectedRows: -3,
+        code: -3,
         msg: '参数必须为对象'
     },
     'idNotExist': {
-        affectedRows: -11,
+        code: -11,
         msg: 'id不存在'
     },
 }
@@ -20,19 +20,19 @@ let errCode = {
 
 let okCode = {
     'updateOk': {
-        affectedRows: 1,
+        code: 1,
         msg: '更新成功'
     },
     'insertOk': {
-        affectedRows: 1,
+        code: 1,
         msg: '新增成功'
     },
     'deleteOk': {
-        affectedRows: 1,
+        code: 1,
         msg: '删除成功'
     },
     'findOk': {
-        affectedRows: 1,
+        code: 1,
         msg: '查询成功'
     },
 } 

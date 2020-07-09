@@ -3,7 +3,7 @@ const BaseService = require('./base');
 class ResourceService extends BaseService {
     constructor(...args){
 		super(...args)
-		this.model = 'resource'
+		this.tableName = 'resource'
 	}
 }
 

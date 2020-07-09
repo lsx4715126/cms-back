@@ -11,14 +11,14 @@ const delay = ms => {
 class RoleService extends BaseService {
 	constructor(...args) {
 		super(...args)
-		this.model = 'role'
+		this.tableName = 'role'
 	}
 
 	async list(pageNum, pageSize, where) {
 		pageSize = parseInt(pageSize)
 		pageNum = parseInt(pageNum)
 		console.log('----------------------RoleService list-------------------------')
-		const list = await this.app.mysql.select(this.model, {
+		const list = await this.app.mysql.select(this.tableName, {
 			where,
 			order: [['id', 'desc']],
 			offset: (pageNum - 1) * pageSize,
@@ -63,7 +63,7 @@ class RoleService extends BaseService {
 		*/
 
 
-		const total = await this.app.mysql.count(this.model, where);
+		const total = await this.app.mysql.count(this.tableName, where);
 
 		// await delay(1000)
 		return { list, total };

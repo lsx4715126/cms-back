@@ -3,7 +3,7 @@ let BaseController = require('./base')
 class UserController extends BaseController {
 	constructor(...args){
 		super(...args)
-		this.model = 'login'
+		this.serviceName = 'login'
 	}
 
 	async login(){
@@ -11,7 +11,7 @@ class UserController extends BaseController {
 		let body = ctx.request.body
 		if(!body.username || !body.password) return { msg: '账号或密码必传！' }
 
-		let result = await service[this.model].login(body)
+		let result = await service[this.serviceName].login(body)
 		console.log(result, '---result---')
 		ctx.body = result
 	}

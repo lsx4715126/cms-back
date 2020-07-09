@@ -10,7 +10,7 @@ class BaseController extends Controller {
 		pageNum = isNaN(pageNum) ? 1 : parseInt(pageNum)
 		pageSize = isNaN(pageSize) ? config.PAGE_SIZE : parseInt(pageSize)
 
-		let result = await service[this.model].list(pageNum, pageSize, where)
+		let result = await service[this.serviceName].list(pageNum, pageSize, where)
 		ctx.body = result
 		// setTimeout(() => ctx.body = result, 3000)
 	}
@@ -19,7 +19,7 @@ class BaseController extends Controller {
 		const { ctx, service } = this;
 		let body = ctx.request.body
 		console.log(body)
-		let result = await service[this.model].insert(body)
+		let result = await service[this.serviceName].insert(body)
 		ctx.body = result
 	}
 
@@ -29,7 +29,7 @@ class BaseController extends Controller {
 		let id = ctx.params.id
 		body.id = id
 		console.log(body)
-		let result = await service[this.model].update(body)
+		let result = await service[this.serviceName].update(body)
 		ctx.body = result
 	}
 
@@ -40,7 +40,7 @@ class BaseController extends Controller {
 		if(!ids){
 			ids = [id]
 		}
-		let result = await service[this.model].delete(ids)
+		let result = await service[this.serviceName].delete(ids)
 		ctx.body = result
 	}
 }

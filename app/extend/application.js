@@ -6,7 +6,7 @@ module.exports = {
         // 过滤参数，返回的结果跟数据库表的字段一致
         let opts = filterDatabaseField(tableName, body)
         
-        if(opts.affectedRows < 0) return opts
+        if(opts.code < 0) return opts
 
         if(opts.id) delete opts.id
         return await this.mysql.insert(tableName, opts)
@@ -17,7 +17,7 @@ module.exports = {
         // 过滤参数，返回的结果跟数据库表的字段一致
         let opts = filterDatabaseField(tableName, body)
 
-        if(opts.affectedRows < 0) return opts
+        if(opts.code < 0) return opts
 
         return await this.mysql.update(tableName, opts)
     }

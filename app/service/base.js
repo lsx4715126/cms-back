@@ -18,20 +18,20 @@ class BaseService extends Service {
         console.log(pageNum, pageSize, where)
 
         
-        let body = {
-            name: 'abc',
-            age: 18
-        }
-        console.log(this.ctx.helper.filterDatabaseField(this.model, body), '-----ctx.helper-----')
+        // let body = {
+        //     name: 'abc',
+        //     age: 18
+        // }
+        // console.log(this.ctx.helper.filterDatabaseField(this.tableName, body), '-----ctx.helper-----')
         
         
-        const list = await app.mysql.select(this.model, {
+        const list = await app.mysql.select(this.tableName, {
             where,//1.where
             orders: [['id', 'desc']],
             offset: (pageNum - 1) * pageSize,
             limit: pageSize
         })
-        let total = await app.mysql.count(this.model, where)//2.where
+        let total = await app.mysql.count(this.tableName, where)//2.where
         console.log(list)
 
         // await delay(5000)
@@ -42,25 +42,25 @@ class BaseService extends Service {
     async insert(body = {}) {
         let { app, ctx } = this
         console.log('-------------insert--------------')
-        const result = await app.insert(this.model, body)
+        const result = await app.insert(this.tableName, body)
         console.log(result)
-        return result.affectedRows > 0 ? result.insertId : 'error';
+        return result.affectedRows > 0 ? result.insertId : '新增失败';
     }
 
     async update(body = {}) {
         let { app, ctx } = this
         console.log('--------------update-------------')
-        const result = await app.update(this.model, body)
+        const result = await app.update(this.tableName, body)
         console.log(result)
-        return result.affectedRows > 0 ? okCode['updateOk'] : 'error';
+        return result.affectedRows > 0 ? '更新成功' : '更新失败';
     }
 
     async delete(id) {
         let { app, ctx } = this
         console.log('--------------delete-------------', id)
-        const result = await app.mysql.delete(this.model, {id})
+        const result = await app.mysql.delete(this.tableName, {id})
         console.log(result)
-        return result.affectedRows > 0 ? okCode['deleteOk'] : 'error';
+        return result.affectedRows > 0 ? '删除成功' : '删除失败';
     }
 }
 
