@@ -1,4 +1,4 @@
-let BaseController = require('./base')
+let BaseController = require('../base')
 
 class UserController extends BaseController {
 	constructor(...args){
