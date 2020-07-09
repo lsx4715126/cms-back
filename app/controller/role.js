@@ -9,27 +9,27 @@ class RoleController extends BaseController {
 	async getResource() {
 		const { ctx, service } = this;
 		let result = await service[this.serviceName].getResource()
-		ctx.body = result
+		ctx.ok(result)
 	}
 
 	async setResource() {
 		const { ctx, service } = this;
 		let body = ctx.request.body
 		let result = await service[this.serviceName].setResource(body)
-		ctx.body = result
+		ctx.ok(result)
 	}
 
 	async getUser() {
 		const { ctx, service } = this;
 		let result = await service[this.serviceName].getUser()
-		ctx.body = result
+		ctx.ok(result)
 	}
 
 	async setUser() {
 		const { ctx, service } = this;
 		let body = ctx.request.body
 		let result = await service[this.serviceName].setUser(body)
-		ctx.body = result
+		ctx.ok(result)
 	}
 }
 

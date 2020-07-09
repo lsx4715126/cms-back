@@ -14,18 +14,11 @@ class UserService extends BaseService {
 		})
 
 		if(user == null){
-			return {
-				code: -1,
-				msg: '账号或密码错误'
-			}
+			ctx.throw(500, '账号或密码错误')
 		}
 
-		let res = await service[this.tableName].getResourceByUserId(user.id)
-        return {
-			code: 1,
-			msg: '查询成功',
-			permission: res
-		}
+		let permission = await service[this.tableName].getResourceByUserId(user.id)
+        return permission
 	}
 }
 

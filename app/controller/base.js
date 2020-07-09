@@ -2,6 +2,29 @@
 
 const Controller = require('egg').Controller;
 
+
+function type(obj) {
+	var toString = Object.prototype.toString;
+	var map = {
+	    '[object Boolean]'  : 'boolean', 
+	    '[object Number]'   : 'number', 
+	    '[object String]'   : 'string', 
+	    '[object Function]' : 'function', 
+	    '[object Array]'    : 'array', 
+	    '[object Date]'     : 'date', 
+	    '[object RegExp]'   : 'regExp', 
+	    '[object Undefined]': 'undefined',
+	    '[object Null]'     : 'null', 
+	    '[object Object]'   : 'object'
+	};
+	// if(obj instanceof Element) {
+    //     return 'element';
+	// }
+	return map[toString.call(obj)];
+}
+
+
+
 class BaseController extends Controller {
 	async index() {
 		const { ctx, service, config } = this;
@@ -11,16 +34,16 @@ class BaseController extends Controller {
 		pageSize = isNaN(pageSize) ? config.PAGE_SIZE : parseInt(pageSize)
 
 		let result = await service[this.serviceName].list(pageNum, pageSize, where)
-		ctx.body = result
-		// setTimeout(() => ctx.body = result, 3000)
+		ctx.ok(result)
+		// setTimeout(() => ctx.ok(result), 3000)
 	}
 
 	async create() {
 		const { ctx, service } = this;
 		let body = ctx.request.body
-		console.log(body)
+		// console.log(body)
 		let result = await service[this.serviceName].insert(body)
-		ctx.body = result
+		ctx.ok(result)
 	}
 
 	async update() {
@@ -28,20 +51,20 @@ class BaseController extends Controller {
 		let body = ctx.request.body
 		let id = ctx.params.id
 		body.id = id
-		console.log(body)
+		// console.log(body)
 		let result = await service[this.serviceName].update(body)
-		ctx.body = result
+		ctx.ok(result)
 	}
 
 	async destroy() {
 		const { ctx, service } = this;
 		let id = ctx.params.id
-		let ids = ctx.request.body
-		if(!ids){
+		let ids = ctx.request.body// 未传参数体的话  ctx.request.body默认为{}
+		if(type(ids) === 'object'){
 			ids = [id]
 		}
 		let result = await service[this.serviceName].delete(ids)
-		ctx.body = result
+		ctx.ok(result)
 	}
 }
 

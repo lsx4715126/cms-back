@@ -17,7 +17,7 @@ class RoleService extends BaseService {
 	async list(pageNum, pageSize, where) {
 		pageSize = parseInt(pageSize)
 		pageNum = parseInt(pageNum)
-		console.log('----------------------RoleService list-------------------------')
+		// console.log('----------------------RoleService list-------------------------')
 		const list = await this.app.mysql.select(this.tableName, {
 			where,
 			order: [['id', 'desc']],
@@ -71,9 +71,9 @@ class RoleService extends BaseService {
 
 	async getResource() {
 		let { app, ctx } = this
-		console.log('--------------getResource-------------')
+		// console.log('--------------getResource-------------')
 		let list = await app.mysql.select('resource')
-		console.log(list)
+		// console.log(list)
 		let rootMenu = []
 		let outherMenu = []
 		let map = {}
@@ -112,9 +112,9 @@ class RoleService extends BaseService {
 
 	async getUser() {
 		let { app, ctx } = this
-		console.log('--------------getUser-------------')
+		// console.log('--------------getUser-------------')
 		let list = await app.mysql.select('user')
-		console.log(list)
+		// console.log(list)
 
 		return list
 	}

@@ -1,21 +1,6 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-
-
-exports.onerror = {
-	all(err, ctx) {
-		ctx.body = {
-			code: -1,
-			err
-		}
-	}
-}
-
-
-
-
-
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -30,7 +15,7 @@ module.exports = appInfo => {
 	config.keys = appInfo.name + '_1560867731488_4423';
 
 	// add your middleware config here
-	config.middleware = ['notFoundHandler', 'responseHandler'];
+	config.middleware = ['errorHandler', 'notFoundHandler', 'responseHandler'];
 
 	// add your user config here
 	const userConfig = {

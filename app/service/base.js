@@ -14,8 +14,8 @@ const delay = ms => {
 class BaseService extends Service {
     async list(pageNum, pageSize, where) {
         let { app, ctx } = this
-        console.log('--------------list-------------')
-        console.log(pageNum, pageSize, where)
+        // console.log('--------------list-------------')
+        // console.log(pageNum, pageSize, where)
 
         
         // let body = {
@@ -32,7 +32,7 @@ class BaseService extends Service {
             limit: pageSize
         })
         let total = await app.mysql.count(this.tableName, where)//2.where
-        console.log(list)
+        // console.log(list)
 
         // await delay(5000)
         return { total, list };
@@ -41,25 +41,32 @@ class BaseService extends Service {
 
     async insert(body = {}) {
         let { app, ctx } = this
-        console.log('-------------insert--------------')
+        // console.log('-------------insert--------------')
         const result = await app.insert(this.tableName, body)
-        console.log(result)
+        // console.log(result)
         return result.affectedRows > 0 ? result.insertId : '新增失败';
     }
 
     async update(body = {}) {
         let { app, ctx } = this
-        console.log('--------------update-------------')
+        // console.log('--------------update-------------')
         const result = await app.update(this.tableName, body)
-        console.log(result)
+        // console.log(result)
         return result.affectedRows > 0 ? '更新成功' : '更新失败';
     }
 
-    async delete(id) {
+    async delete(ids=[]) {
         let { app, ctx } = this
-        console.log('--------------delete-------------', id)
-        const result = await app.mysql.delete(this.tableName, {id})
-        console.log(result)
+        // console.log('--------------delete-------------', ids)
+
+        let result = { affectedRows: 0 }
+        for(let i=0; i<ids.length; i++){
+            let id = ids[i]
+            console.log(id, 'id')
+            let res = await app.mysql.delete(this.tableName, {id})
+            result.affectedRows += res.affectedRows
+        }
+        // console.log(result)
         return result.affectedRows > 0 ? '删除成功' : '删除失败';
     }
 }
