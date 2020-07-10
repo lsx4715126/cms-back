@@ -1,39 +1,30 @@
 let path = require('path')
 let fs = require('fs')
-let { errCode } = require('../util/const')
-
 
 function isObject(o){
     return Object.prototype.toString.call(o) == '[object Object]'
 }
 
+function type(obj) {
+	var toString = Object.prototype.toString;
+	var map = {
+	    '[object Boolean]'  : 'boolean', 
+	    '[object Number]'   : 'number', 
+	    '[object String]'   : 'string', 
+	    '[object Function]' : 'function', 
+	    '[object Array]'    : 'array', 
+	    '[object Date]'     : 'date', 
+	    '[object RegExp]'   : 'regExp', 
+	    '[object Undefined]': 'undefined',
+	    '[object Null]'     : 'null', 
+	    '[object Object]'   : 'object'
+	};
+	// if(obj instanceof Element) {
+    //     return 'element';
+	// }
+	return map[toString.call(obj)];
+}
+
 module.exports = {
-    filterDatabaseField(tableName = '', param = {}) {
-        let modelPath = path.resolve(__dirname, `../model/${tableName}.js`)
-        let exists = fs.existsSync(modelPath)
-
-        if(!exists){
-            return errCode['modelFileNotExist']
-        }
-
-        // 获取model，即数据库tableName表的初始值
-        let model = require(modelPath)
-        
-        if(!isObject(model)){
-            return errCode['modelNotObject']
-        } 
-
-        if(!isObject(param)){
-            return errCode['optsNotObject']
-        }
-
-        // this 是 helper 对象，在其中可以调用其他 helper 方法
-        // this.ctx => context 对象
-        // this.app => application 对象
-        let result = Object.keys(model).reduce((prev, item) => {
-            param[item] ? (prev[item] = param[item]) : (prev[item] = model[item])
-            return prev
-        }, {})
-        return result
-    },
+    type,
 };

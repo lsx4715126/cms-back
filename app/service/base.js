@@ -1,5 +1,4 @@
 const Service = require('egg').Service;
-let { okCode } = require('../util/const')
 
 
 const delay = ms => {

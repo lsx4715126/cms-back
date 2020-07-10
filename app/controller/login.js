@@ -8,12 +8,14 @@ class UserController extends BaseController {
 
 	async login(){
 		const { ctx, service } = this;
-		let body = ctx.request.body
-		if(!body.username || !body.password) {
-			ctx.err('账号或密码必传！')
-			return
-		}
 
+		ctx.validate({
+			username: 'string',
+			password: 'string'
+		})
+
+
+		let body = ctx.request.body
 		let permission = await service[this.serviceName].login(body)
 		ctx.ok(permission)
 	}

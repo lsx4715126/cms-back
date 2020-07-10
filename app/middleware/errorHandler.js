@@ -7,7 +7,8 @@ module.exports = options => {
             
             ctx.body = {
                 code: -1,
-                msg: error.message || JSON.stringify(error)
+                msg: error.message || JSON.stringify(error),
+                errors: error.errors || ''
             }
         }
         

@@ -1,4 +1,6 @@
 /* eslint valid-jsdoc: "off" */
+let db = require('./db')
+
 
 'use strict';
 /**
@@ -15,7 +17,7 @@ module.exports = appInfo => {
 	config.keys = appInfo.name + '_1560867731488_4423';
 
 	// add your middleware config here
-	config.middleware = ['errorHandler', 'notFoundHandler', 'responseHandler'];
+	config.middleware = ['errorHandler', 'notFoundHandler', 'responseHandler', 'jwtHandler'];
 
 	// add your user config here
 	const userConfig = {
@@ -33,15 +35,15 @@ module.exports = appInfo => {
 		// database configuration
 		client: {
 			// host
-			host: '127.0.0.1',
+			host: db.host,
 			// port
-			port: '3306',
+			port: db.port,
 			// username
-			user: 'root',
+			user: db.user,
 			// password
-			password: 'root',
+			password: db.password,
 			// database
-			database: 'cms',
+			database: db.database,
 		},
 		// load into app, default is open
 		app: true,
