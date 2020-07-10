@@ -61,7 +61,6 @@ class BaseService extends Service {
         let result = { affectedRows: 0 }
         for(let i=0; i<ids.length; i++){
             let id = ids[i]
-            console.log(id, 'id')
             let res = await app.mysql.delete(this.tableName, {id})
             result.affectedRows += res.affectedRows
         }

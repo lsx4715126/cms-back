@@ -1,10 +1,6 @@
 'use strict';
 
 const Controller = require('egg').Controller;
-let { type } = require('../extend/helper')
-
-
-
 
 
 class BaseController extends Controller {
@@ -42,7 +38,7 @@ class BaseController extends Controller {
 		const { ctx, service } = this;
 		let id = ctx.params.id
 		let ids = ctx.request.body// 未传参数体的话  ctx.request.body默认为{}
-		if(type(ids) === 'object'){
+		if(ctx.helper.type(ids) === 'object'){
 			ids = [id]
 		}
 		let result = await service[this.serviceName].delete(ids)
