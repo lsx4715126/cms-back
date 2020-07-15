@@ -16,6 +16,10 @@ class UserController extends BaseController {
 
 
 		let body = ctx.request.body
+
+		ctx.logger.info('login request data: %j', ctx.request.body)// 登陆日志
+		// ctx.logger.warn('WARNNING!!!!');
+		
 		let permission = await service[this.serviceName].login(body)
 		ctx.ok(permission)
 	}

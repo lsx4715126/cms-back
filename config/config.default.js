@@ -63,6 +63,21 @@ module.exports = appInfo => {
 		allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
 	}
 
+	// WebSocket
+	config.io = {
+		init: {}, // passed to engine.io
+		namespace: {
+			'/': {
+				connectionMiddleware: ['connection'],
+				packetMiddleware: [],
+			},
+			'/example': {
+				connectionMiddleware: [],
+				packetMiddleware: [],
+			},
+		},
+	};
+
 	return {
 		...config,
 		...userConfig,
