@@ -2,6 +2,7 @@
 
 const Controller = require('egg').Controller;
 
+let delay = ms => new Promise((resolve, reject) => setTimeout(resolve, ms))
 
 class BaseController extends Controller {
 	async index() {
@@ -12,8 +13,8 @@ class BaseController extends Controller {
 		pageSize = isNaN(pageSize) ? config.PAGE_SIZE : parseInt(pageSize)
 
 		let result = await service[this.serviceName].list(pageNum, pageSize, where)
+		await delay(3000)
 		ctx.ok(result)
-		// setTimeout(() => ctx.ok(result), 3000)
 	}
 
 	async create() {
