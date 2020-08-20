@@ -34,8 +34,10 @@ class BaseService extends Service {
         // console.log(list)
 
         // await delay(5000)
+        
         return { total, list };
-        // return new Error()
+        // ctx.throw(-1, '查询失败')
+        // throw new Error()
     }
 
     async insert(body = {}) {
@@ -43,7 +45,7 @@ class BaseService extends Service {
         // console.log('-------------insert--------------')
         const result = await app.insert(this.tableName, body)
         // console.log(result)
-        return result.affectedRows > 0 ? result.insertId : '新增失败';
+        return result.affectedRows > 0 ? result.insertId : ctx.throw(-1, '新增失败');
     }
 
     async update(body = {}) {
@@ -51,7 +53,7 @@ class BaseService extends Service {
         // console.log('--------------update-------------')
         const result = await app.update(this.tableName, body)
         // console.log(result)
-        return result.affectedRows > 0 ? '更新成功' : '更新失败';
+        return result.affectedRows > 0 ? '更新成功' : ctx.throw(-1, '更新失败');
     }
 
     async delete(ids=[]) {
@@ -65,7 +67,7 @@ class BaseService extends Service {
             result.affectedRows += res.affectedRows
         }
         // console.log(result)
-        return result.affectedRows > 0 ? '删除成功' : '删除失败';
+        return result.affectedRows > 0 ? '删除成功' : ctx.throw(-1, '删除失败');
     }
 }
 
