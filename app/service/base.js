@@ -37,7 +37,8 @@ class BaseService extends Service {
         
         return { total, list };
         // ctx.throw(-1, '查询失败')
-        // throw new Error()
+        // throw new Error('xxx')
+        // return a.b.c
     }
 
     async insert(body = {}) {
